@@ -1,14 +1,30 @@
-html, body {
+html,
+body {
   padding: 0rem;
-  margin:0rem;
+  margin: 0rem;
   box-sizing: content-box;
 }
 
 //Toolbar
-.p-toolbar{
-  background-color: rgba(37, 37, 37, 0.733);
-  img{
+.p-toolbar {
+  background-color: rgba(24, 24, 24, 0.842);
+
+  img {
     width: 6rem;
     border-radius: 6rem;
   }
+}
+
+//Dropdowns
+.p-dropdown {
+  background-color: rgba(24, 24, 24, 0.842);
+
+  .p-dropdown-label {
+    color: white;
+  }
+
+  &:not(.p-disabled):hover {
+    background-color: rgba(24, 24, 24, 0.842);
+  }
+
 }

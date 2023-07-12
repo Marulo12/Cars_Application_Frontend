@@ -4,7 +4,7 @@
       <label for="brand">Marca</label>
       <p-dropdown
         id="brand"
-        [options]="[]"
+        [options]="brands"
         optionLabel="name"
         optionValue="id"
         styleClass="w-full"
@@ -14,10 +14,10 @@
       </p-dropdown>
     </div>
     <div class="field col-12 md:col-6">
-      <label for="model">Marca</label>
+      <label for="model">Modelo</label>
       <p-dropdown
         id="model"
-        [options]="[]"
+        [options]="models"
         optionLabel="name"
         optionValue="id"
         styleClass="w-full"
@@ -45,7 +45,16 @@
         type="text"
         class="w-full"
         formControlName="color"
+        required
       />
+      <small
+        id="color-help"
+        class="p-error"
+        *ngIf="
+          formGroup.get('color')?.invalid && formGroup.get('color')?.touched
+        "
+        >* Es requerido</small
+      >
     </div>
     <div class="field col-12 md:col-3">
       <label for="vin">VIN</label>
@@ -56,6 +65,12 @@
         class="w-full"
         formControlName="vin"
       />
+      <small
+        id="vin-help"
+        class="p-error"
+        *ngIf="formGroup.get('vin')?.invalid && formGroup.get('vin')?.touched"
+        >* Es requerido</small
+      >
     </div>
     <div class="field col-12 md:col-3">
       <label for="year">Año</label>
@@ -66,6 +81,12 @@
         class="w-full"
         formControlName="year"
       />
+      <small
+        id="year-help"
+        class="p-error"
+        *ngIf="formGroup.get('year')?.invalid && formGroup.get('year')?.touched"
+        >* Es requerido</small
+      >
     </div>
     <div class="field col-12 md:col-3">
       <label for="mileage">Kilometraje</label>
@@ -76,6 +97,30 @@
         class="w-full"
         formControlName="mileage"
       />
+      <small
+        id="mileage-help"
+        class="p-error"
+        *ngIf="
+          formGroup.get('mileage')?.invalid && formGroup.get('mileage')?.touched
+        "
+        >* Es requerido</small
+      >
+    </div>
+  </div>
+  <div class="formgrid grid">
+    <div class="field col-12 flex justify-content-end">
+      <button
+        pButton
+        class="p-button-success mr-1"
+        label="Aceptar"
+        (click)="acceptHandler()"
+      ></button>
+      <button
+        pButton
+        class="p-button-secondary"
+        label="Cancelar"
+        (click)="close()"
+      ></button>
     </div>
   </div>
 </form>

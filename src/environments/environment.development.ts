@@ -3,13 +3,15 @@ export const environment = {
   controllers:{
     cars:{
       getCars:'cars/get-cars',
-      deleteCar:'cars/delete-car-by-id'
+      deleteCar:'cars/delete-car-by-id',
+      newCar: 'cars/new-car',
+      updateCar: 'cars/update-car'
     },
     brands:{
       getBrands:'brands/get-brands',
     },
     models:{
-      getModelsByBrand:'brands/get-models-by-idbrand',
+      getModelsByBrand:'models/get-models-by-idbrand',
     }
   }
 };

@@ -11,7 +11,7 @@
         [rows]="5"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords}"
-        [rowsPerPageOptions]="[10, 25, 50]"
+        [rowsPerPageOptions]="[5, 10, 25]"
         [globalFilterFields]="[
           'brand.name',
           'model.name',
@@ -45,6 +45,7 @@
               label="Nuevo Automovil"
               class="p-button-success p-button-outlined"
               icon="pi pi-plus"
+              (click)="openDialogCar(true)"
             ></button>
           </div>
         </ng-template>
@@ -143,9 +144,10 @@
             <td>
               <button
                 pButton
-                class="p-button-warning"
+                class="p-button-warning mr-2"
                 pTooltip="Editar"
                 icon="pi pi-pencil"
+                (click)="openDialogCar(false, car)"
               ></button>
               <button
               pButton
