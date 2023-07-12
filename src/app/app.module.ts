@@ -7,21 +7,24 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { LoadInterceptor } from './interceptors/load-interceptor';
 import { EffectsModule } from '@ngrx/effects';
-
+import { carsReducer } from './store/cars/cars.reducers';
+import { CarsEffects } from './store/cars/cars.effects';
+import { PrimengModule } from './shared/modules/primeng/primeng.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([])
+    PrimengModule,
+    StoreModule.forRoot({ cars: carsReducer }),
+    EffectsModule.forRoot(CarsEffects),
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:LoadInterceptor}],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

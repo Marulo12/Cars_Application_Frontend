@@ -1,31 +1,31 @@
-import { NgModule } from '@angular/core';
-import {CardModule} from 'primeng/card';
-import {ButtonModule} from 'primeng/button';
-import {InputTextModule} from 'primeng/inputtext';
-import {ToastModule} from 'primeng/toast';
-import {ToolbarModule} from 'primeng/toolbar';
-import {SidebarModule} from 'primeng/sidebar';
-import {MenuModule} from 'primeng/menu';
-import {PanelModule} from 'primeng/panel';
-import {SplitButtonModule} from 'primeng/splitbutton';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { SidebarModule } from 'primeng/sidebar';
+import { MenuModule } from 'primeng/menu';
+import { PanelModule } from 'primeng/panel';
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {TableModule} from 'primeng/table';
-import {DialogModule} from 'primeng/dialog';
-import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
-import {BadgeModule} from 'primeng/badge';
-import {DropdownModule} from 'primeng/dropdown';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import {FieldsetModule} from 'primeng/fieldset';
-import {CheckboxModule} from 'primeng/checkbox';
-import {ListboxModule} from 'primeng/listbox';
-import {DividerModule} from 'primeng/divider';
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { BadgeModule } from 'primeng/badge';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FieldsetModule } from 'primeng/fieldset';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ListboxModule } from 'primeng/listbox';
+import { DividerModule } from 'primeng/divider';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { ChipModule } from 'primeng/chip';
-import {FileUploadModule} from 'primeng/fileupload';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -39,6 +39,9 @@ import { ScrollTopModule } from 'primeng/scrolltop';
 import { SkeletonModule } from 'primeng/skeleton';
 import { PaginatorModule } from 'primeng/paginator';
 import { GalleriaModule } from 'primeng/galleria';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+registerLocaleData(localeEs);
 @NgModule({
   imports: [
     CommonModule,
@@ -80,9 +83,9 @@ import { GalleriaModule } from 'primeng/galleria';
     ScrollTopModule,
     SkeletonModule,
     PaginatorModule,
-    GalleriaModule
+    GalleriaModule,
   ],
-  exports:[
+  exports: [
     CommonModule,
     CardModule,
     ButtonModule,
@@ -122,9 +125,13 @@ import { GalleriaModule } from 'primeng/galleria';
     ScrollTopModule,
     SkeletonModule,
     PaginatorModule,
-    GalleriaModule
+    GalleriaModule,
   ],
-  providers:[ConfirmationService, DialogService, MessageService]
+  providers: [
+    ConfirmationService,
+    DialogService,
+    MessageService,
+    { provide: LOCALE_ID, useValue: 'es' },
+  ],
 })
-
-export class PrimengModule { }
+export class PrimengModule {}

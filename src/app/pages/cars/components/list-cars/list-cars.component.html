@@ -1,1 +1,137 @@
-<p>list-cars works!</p>
+<div class="grid">
+  <div class="col-12 p-5">
+    <p-panel [header]="'Consulta de Automóviles'">
+      <p-table
+        #carsTable
+        [value]="cars"
+        dataKey="id"
+        styleClass="w-full p-datatable-striped"
+        responsiveLayout="stack"
+        [paginator]="true"
+        [rows]="5"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords}"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [globalFilterFields]="[
+          'brand.name',
+          'model.name',
+          'year',
+          'price',
+          'color',
+          'mileage',
+          'vin'
+        ]"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex">
+            <button
+              pButton
+              label="Refrescar"
+              class="p-button-outlined"
+              icon="pi pi-filter-slash"
+              (click)="refresh()"
+            ></button>
+            <button
+              pButton
+              label="Limpiar"
+              class="p-button-outlined"
+              icon="pi pi-filter-slash"
+              (click)="clear()"
+            ></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Id</th>
+            <th>
+              <div class="flex align-items-center">
+                Marca
+                <p-columnFilter
+                  type="text"
+                  field="brand.name"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                Modelo
+                <p-columnFilter
+                  type="text"
+                  field="model.name"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                Año
+                <p-columnFilter
+                  type="numeric"
+                  field="year"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                Precio $
+                <p-columnFilter
+                  type="numeric"
+                  field="price"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                Color
+                <p-columnFilter
+                  type="text"
+                  field="color"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                Kilometraje
+                <p-columnFilter
+                  type="numeric"
+                  field="mileage"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th><div class="flex align-items-center">
+              VIN
+              <p-columnFilter
+                type="text"
+                field="vin"
+                display="menu"
+              ></p-columnFilter>
+            </div></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-car>
+          <tr>
+            <td><span class="p-column-title">Id</span>{{ car.id }}</td>
+            <td>
+              <span class="p-column-title">Marca</span>{{ car.brand.name }}
+            </td>
+            <td>
+              <span class="p-column-title">Modelo</span>{{ car.model.name }}
+            </td>
+            <td><span class="p-column-title">Año</span>{{ car.year }}</td>
+            <td><span class="p-column-title">Precio $</span>{{ car.price }}</td>
+            <td><span class="p-column-title">Color</span>{{ car.color }}</td>
+            <td>
+              <span class="p-column-title">Kilometraje</span>{{ car.mileage }}
+            </td>
+            <td><span class="p-column-title">VIN</span>{{ car.vin }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+  </div>
+</div>

@@ -7,7 +7,7 @@ export interface Car {
   year: number;
   color: string;
   mileage: number;
-  vIN: string;
+  vin: string;
   model: Model;
   brand: Brand;
 }
