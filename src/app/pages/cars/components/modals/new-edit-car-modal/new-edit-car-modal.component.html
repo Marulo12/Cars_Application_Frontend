@@ -1,0 +1,81 @@
+<form [formGroup]="formGroup">
+  <div class="formgrid grid">
+    <div class="field col-12 md:col-6">
+      <label for="brand">Marca</label>
+      <p-dropdown
+        id="brand"
+        [options]="[]"
+        optionLabel="name"
+        optionValue="id"
+        styleClass="w-full"
+        (onChange)="onChangeBrand($event)"
+        formControlName="brand"
+      >
+      </p-dropdown>
+    </div>
+    <div class="field col-12 md:col-6">
+      <label for="model">Marca</label>
+      <p-dropdown
+        id="model"
+        [options]="[]"
+        optionLabel="name"
+        optionValue="id"
+        styleClass="w-full"
+        formControlName="model"
+      >
+      </p-dropdown>
+    </div>
+  </div>
+  <div class="formgrid grid">
+    <div class="field col-12 md:col-3">
+      <label for="price">Precio</label>
+      <input
+        id="price"
+        pInputText
+        type="number"
+        class="w-full"
+        formControlName="price"
+      />
+    </div>
+    <div class="field col-12 md:col-3">
+      <label for="color">Color</label>
+      <input
+        id="color"
+        pInputText
+        type="text"
+        class="w-full"
+        formControlName="color"
+      />
+    </div>
+    <div class="field col-12 md:col-3">
+      <label for="vin">VIN</label>
+      <input
+        id="vin"
+        pInputText
+        type="text"
+        class="w-full"
+        formControlName="vin"
+      />
+    </div>
+    <div class="field col-12 md:col-3">
+      <label for="year">Año</label>
+      <input
+        id="year"
+        pInputText
+        type="text"
+        class="w-full"
+        formControlName="year"
+      />
+    </div>
+    <div class="field col-12 md:col-3">
+      <label for="mileage">Kilometraje</label>
+      <input
+        id="mileage"
+        pInputText
+        type="number"
+        class="w-full"
+        formControlName="mileage"
+      />
+    </div>
+  </div>
+</form>

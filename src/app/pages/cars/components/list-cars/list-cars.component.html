@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid m-0">
   <div class="col-12 p-5">
     <p-panel [header]="'Consulta de Automóviles'">
       <p-table
@@ -28,7 +28,7 @@
               pButton
               label="Refrescar"
               class="p-button-outlined"
-              icon="pi pi-filter-slash"
+              icon="pi pi-replay"
               (click)="refresh()"
             ></button>
             <button
@@ -37,6 +37,14 @@
               class="p-button-outlined"
               icon="pi pi-filter-slash"
               (click)="clear()"
+            ></button>
+          </div>
+          <div class="flex md:justify-content-end">
+            <button
+              pButton
+              label="Nuevo Automovil"
+              class="p-button-success p-button-outlined"
+              icon="pi pi-plus"
             ></button>
           </div>
         </ng-template>
@@ -103,14 +111,17 @@
                 ></p-columnFilter>
               </div>
             </th>
-            <th><div class="flex align-items-center">
-              VIN
-              <p-columnFilter
-                type="text"
-                field="vin"
-                display="menu"
-              ></p-columnFilter>
-            </div></th>
+            <th>
+              <div class="flex align-items-center">
+                VIN
+                <p-columnFilter
+                  type="text"
+                  field="vin"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-car>
@@ -129,6 +140,21 @@
               <span class="p-column-title">Kilometraje</span>{{ car.mileage }}
             </td>
             <td><span class="p-column-title">VIN</span>{{ car.vin }}</td>
+            <td>
+              <button
+                pButton
+                class="p-button-warning"
+                pTooltip="Editar"
+                icon="pi pi-pencil"
+              ></button>
+              <button
+              pButton
+              class="p-button-danger"
+              pTooltip="Eliminar"
+              icon="pi pi-trash"
+              (click)="deleteCar(car.id)"
+            ></button>
+            </td>
           </tr>
         </ng-template>
       </p-table>
