@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { Observable } from 'rxjs';
@@ -22,7 +22,8 @@ export class ListCarsComponent implements OnInit {
     private store: Store<{ cars: Array<Car> }>,
     private carService: CarService,
     private messageService: MessageService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private confirmationService: ConfirmationService
   ) {
     this.cars = [];
     this.cars$ = store.select((s) => s.cars);
@@ -49,31 +50,41 @@ export class ListCarsComponent implements OnInit {
   }
 
   deleteCar(idCar: number) {
-    this.carService.deleteCar(idCar).subscribe((r) => {
-      if (r.success) {
-        this.messageService.add({
-          severity: 'success',
-          detail: r.message,
-          key: 'success',
-          summary: 'Notificacion',
+    this.confirmationService.confirm({
+      message: 'Esta seguro de eliminar el automóvil?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Aceptar',
+      key: 'confirmDialog',
+      accept: () => {
+        this.carService.deleteCar(idCar).subscribe((r) => {
+          if (r.success) {
+            this.messageService.add({
+              severity: 'success',
+              detail: r.message,
+              key: 'success',
+              summary: 'Notificacion',
+            });
+            this.getCars();
+          }
         });
-        this.getCars();
-      }
+      },
     });
   }
 
   openDialogCar(isNew: boolean, car?: Car) {
-  let dialog =  this.dialogService.open(NewEditCarModalComponent, {
+    let dialog = this.dialogService.open(NewEditCarModalComponent, {
       header: (isNew ? 'Nuevo ' : 'Editar ') + 'Automovil',
       width: '65vw',
       data: {
         car,
-        isNew
+        isNew,
       },
+      closable: false
     });
 
-    dialog.onClose.subscribe(r => {
-      this.getCars();
+    dialog.onClose.subscribe((r) => {
+        this.getCars();
     });
   }
 }

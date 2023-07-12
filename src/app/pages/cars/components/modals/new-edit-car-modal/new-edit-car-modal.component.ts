@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Brand } from 'src/app/models/brand.model';
 import { Car } from 'src/app/models/car.model';
@@ -28,7 +28,8 @@ export class NewEditCarModalComponent implements OnInit {
     private brandService: BrandService,
     private modelService: ModelService,
     private messageService: MessageService,
-    private carService: CarService
+    private carService: CarService,
+    private confirmationService: ConfirmationService
   ) {
     this.isNew = this.dynamicDialogConfig.data.isNew;
     this.car = this.dynamicDialogConfig.data.car;
@@ -77,8 +78,8 @@ export class NewEditCarModalComponent implements OnInit {
     this.getModelsByIdBrand(value);
   }
 
-  close() {
-    this.dynamicDialogRef.close();
+  close(isReload:boolean) {
+    this.dynamicDialogRef.close(isReload);
   }
 
   acceptHandler() {
@@ -94,50 +95,76 @@ export class NewEditCarModalComponent implements OnInit {
     }
 
     if (this.isNew) {
-      this.carService
-        .newCar({
-          color: this.formGroup.get('color')?.value,
-          price: this.formGroup.get('price')?.value,
-          vin: this.formGroup.get('vin')?.value,
-          year: this.formGroup.get('year')?.value,
-          idBrand: this.formGroup.get('brand')?.value,
-          idModel: this.formGroup.get('model')?.value,
-          mileage: this.formGroup.get('mileage')?.value,
-        })
-        .subscribe((r) => {
-          if (r.success) {
-            this.messageService.add({
-              severity: 'success',
-              detail: r.message,
-              key: 'success',
-              summary: 'Notificacion',
-            });
-            this.close();
-          }
-        });
+      this.newCar();
     } else {
-      this.carService
-        .updateCar({
-          id: this.formGroup.get('id')?.value,
-          color: this.formGroup.get('color')?.value,
-          price: this.formGroup.get('price')?.value,
-          vin: this.formGroup.get('vin')?.value,
-          year: this.formGroup.get('year')?.value,
-          idBrand: this.formGroup.get('brand')?.value,
-          idModel: this.formGroup.get('model')?.value,
-          mileage: this.formGroup.get('mileage')?.value,
-        })
-        .subscribe((r) => {
-          if (r.success) {
-            this.messageService.add({
-              severity: 'success',
-              detail: r.message,
-              key: 'success',
-              summary: 'Notificacion',
-            });
-            this.close();
-          }
-        });
+      this.updateCar();
     }
+  }
+
+  newCar() {
+    this.confirmationService.confirm({
+      message: 'Confirma la creacion del automóvil?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Aceptar',
+      key: 'confirmDialog',
+      accept: () => {
+        this.carService
+          .newCar({
+            color: this.formGroup.get('color')?.value,
+            price: this.formGroup.get('price')?.value,
+            vin: this.formGroup.get('vin')?.value,
+            year: this.formGroup.get('year')?.value,
+            idBrand: this.formGroup.get('brand')?.value,
+            idModel: this.formGroup.get('model')?.value,
+            mileage: this.formGroup.get('mileage')?.value,
+          })
+          .subscribe((r) => {
+            if (r.success) {
+              this.messageService.add({
+                severity: 'success',
+                detail: r.message,
+                key: 'success',
+                summary: 'Notificacion',
+              });
+              this.close(true);
+            }
+          });
+      },
+    });
+  }
+
+  updateCar() {
+    this.confirmationService.confirm({
+      message: 'Esta seguro de modificar el automóvil?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Aceptar',
+      key: 'confirmDialog',
+      accept: () => {
+        this.carService
+          .updateCar({
+            id: this.formGroup.get('id')?.value,
+            color: this.formGroup.get('color')?.value,
+            price: this.formGroup.get('price')?.value,
+            vin: this.formGroup.get('vin')?.value,
+            year: this.formGroup.get('year')?.value,
+            idBrand: this.formGroup.get('brand')?.value,
+            idModel: this.formGroup.get('model')?.value,
+            mileage: this.formGroup.get('mileage')?.value,
+          })
+          .subscribe((r) => {
+            if (r.success) {
+              this.messageService.add({
+                severity: 'success',
+                detail: r.message,
+                key: 'success',
+                summary: 'Notificacion',
+              });
+              this.close(true);
+            }
+          });
+      },
+    });
   }
 }

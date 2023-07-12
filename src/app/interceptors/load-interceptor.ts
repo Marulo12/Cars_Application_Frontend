@@ -11,12 +11,9 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 
-
 @Injectable()
 export class LoadInterceptor implements HttpInterceptor {
-  constructor(
-    private messageService: MessageService
-  ) {}
+  constructor(private messageService: MessageService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -24,7 +21,7 @@ export class LoadInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const authReq = req.clone({
       setHeaders: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     });
 
@@ -79,12 +76,30 @@ export class LoadInterceptor implements HttpInterceptor {
                   key: 'errors',
                 });
 
+                let errors = err.error.Errors as Array<string>;
+                errors?.forEach((item) => {
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Notificacion',
+                    detail: item,
+                    key: 'errors',
+                  });
+                });
+
                 break;
               case 404:
                 this.messageService.add({
                   severity: 'error',
                   summary: 'Notificacion',
                   detail: 'No se encontró el recurso.',
+                  key: 'errors',
+                });
+                break;
+              case 401:
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Notificacion',
+                  detail: 'Sesion Caducada',
                   key: 'errors',
                 });
                 break;
