@@ -5,6 +5,7 @@ import { PrimengModule } from 'src/app/shared/modules/primeng/primeng.module';
 import { CarsComponent } from './cars.component';
 import { ListCarsComponent } from './components/list-cars/list-cars.component';
 import { NewEditCarModalComponent } from './components/modals/new-edit-car-modal/new-edit-car-modal.component';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { NewEditCarModalComponent } from './components/modals/new-edit-car-modal
   imports: [
     CommonsModule,
     PrimengModule,
+    ComponentsModule,
     CarsRoutingModule
   ]
 })
