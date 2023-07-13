@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { carsReducer } from './store/cars/cars.reducers';
 import { CarsEffects } from './store/cars/cars.effects';
 import { PrimengModule } from './shared/modules/primeng/primeng.module';
+import { ComponentsModule } from './shared/components/components.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { PrimengModule } from './shared/modules/primeng/primeng.module';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    ComponentsModule,
     PrimengModule,
     StoreModule.forRoot({ cars: carsReducer }),
     EffectsModule.forRoot(CarsEffects),

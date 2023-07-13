@@ -65,17 +65,6 @@ export class LoadInterceptor implements HttpInterceptor {
                 break;
 
               case 400:
-                this.messageService.add({
-                  severity: 'error',
-                  summary: 'Notificacion',
-                  detail:
-                    err.error?.Message ||
-                    ((err.error as Blob)
-                      ? 'No se pudo descargar el archivo'
-                      : err.error),
-                  key: 'errors',
-                });
-
                 let errors = err.error.Errors as Array<string>;
                 errors?.forEach((item) => {
                   this.messageService.add({
@@ -92,14 +81,6 @@ export class LoadInterceptor implements HttpInterceptor {
                   severity: 'error',
                   summary: 'Notificacion',
                   detail: 'No se encontró el recurso.',
-                  key: 'errors',
-                });
-                break;
-              case 401:
-                this.messageService.add({
-                  severity: 'error',
-                  summary: 'Notificacion',
-                  detail: 'Sesion Caducada',
                   key: 'errors',
                 });
                 break;
